@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Configure The Box
   config.vm.box_version = "= 2.2.7"
   config.vm.box = 'bento/ubuntu-14.04'
-  config.vm.hostname = 'stobox'
+  config.vm.hostname = 'devbox'
 
   # Don't Replace The Default Key https://github.com/mitchellh/vagrant/pull/4707
   config.ssh.insert_key = false
@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :private_network, ip: "192.168.10.10"
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize ['modifyvm', :id, '--name', 'stobox']
+    vb.customize ['modifyvm', :id, '--name', 'devbox']
     vb.customize ['modifyvm', :id, '--memory', '2048']
     vb.customize ["modifyvm", :id, "--cpus", "2"]
     vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
@@ -63,6 +63,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'shell', path: './scripts/update.sh'
   config.vm.provision :reload
   config.vm.provision 'shell', path: './scripts/provision.sh'
-  # Special Provisining for Redis Server
-  # config.vm.provision 'shell', path: './scripts/redis.sh'
 end
